@@ -86,7 +86,7 @@ class Finder extends Phaser.Scene {
         repeat: -1
       })
 
-      findeeText.text = "YESSSSSS!!!!"
+      findeeText.text = "!!!WINNER!!!!"
 
       this.gameOver = true;
     });
