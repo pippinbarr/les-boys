@@ -77,6 +77,8 @@ class Finder extends Phaser.Scene {
     findee.text = findeeText;
 
     findee.on("pointerdown", () => {
+      if (this.gameOver) return;
+
       this.tweens.add({
         targets: [findee, findeeText],
         rotation: Math.PI * 2,
@@ -85,6 +87,8 @@ class Finder extends Phaser.Scene {
       })
 
       findeeText.text = "YESSSSSS!!!!"
+
+      this.gameOver = true;
     });
 
     return findee;
