@@ -9,9 +9,7 @@ for (let p of characterPaths) {
     name: "",
     path: p
   };
-  console.log(p);
   const splitPath = p.split("/");
-  console.log(splitPath)
   const splitFile = splitPath[splitPath.length - 1].split(".");
   c.name = splitFile[0];
   characters.push(c);

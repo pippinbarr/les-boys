@@ -12,7 +12,31 @@ class Finder extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor("#000000");
 
+    this.lesBoys = this.add.group();
     this.addLesBoys(20);
+
+    this.rematchButton = this.add.text(WIDTH / 2, HEIGHT / 2, `REMATCH!`, {
+      font: "bold 128px sans-serif",
+      color: "#000",
+      backgroundColor: "#ffff00",
+      padding: {
+        top: 0,
+        bottom: 0,
+      },
+    }).setOrigin(0.5, 0.5);
+    this.rematchButton.setAngle(90);
+    this.rematchButton.setInteractive();
+    this.rematchButton.setVisible(false);
+
+    this.rematchButton.on("pointerdown", () => {
+      if (!this.rematchButton.visible) return;
+      this.rematchButton.setVisible(false);
+      this.findMeTop.text.destroy();
+      this.findMeBottom.text.destroy();
+      this.lesBoys.clear(true);
+      this.gameOver = false;
+      this.addLesBoys(20);
+    });
 
     this.cameras.main.once('camerafadeincomplete', function (camera) {
       this.inputEnabled = true;
@@ -41,12 +65,13 @@ class Finder extends Phaser.Scene {
         this.findMeBottom = this.createFindee(c.name, s, this.height * 0.9, 0);
       }
 
+      this.lesBoys.add(s);
     }
 
     this.findMeTop.setDepth(10000);
-    this.findMeTop.text.setDepth(10000);
+    this.findMeTop.text.setDepth(20000);
     this.findMeBottom.setDepth(10000);
-    this.findMeBottom.text.setDepth(10000);
+    this.findMeBottom.text.setDepth(20000);
 
 
 
@@ -87,6 +112,8 @@ class Finder extends Phaser.Scene {
       })
 
       findeeText.text = "!!!WINNER!!!!"
+
+      this.rematchButton.setVisible(true);
 
       this.gameOver = true;
     });
